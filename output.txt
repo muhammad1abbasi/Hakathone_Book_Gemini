@@ -1,0 +1,10 @@
+The Docusaurus configuration (`physical-ai-book/docusaurus/docusaurus.config.ts`) has been updated to correctly display the "Physical AI & Humanoid Robotics" book content and information.
+
+Please navigate to the `physical-ai-book/docusaurus` directory in your terminal and run the development server again:
+
+```bash
+cd physical-ai-book\docusaurus
+npm run start
+```
+
+You should now see the generated book content at `http://localhost:3000`.

@@ -1,0 +1,111 @@
+openapi: 3.0.0
+info:
+  title: Physical AI & Humanoid Robotics RAG API
+  description: API for the RAG chatbot backend.
+  version: 1.0.0
+
+paths:
+  /embed:
+    post:
+      summary: Embed and store a piece of content
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+                  description: The text content to embed.
+                source:
+                  type: string
+                  description: The source of the content (e.g., 'module-01/chapter-01/lesson-01.md').
+      responses:
+        '200':
+          description: Successfully embedded content.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Content embedded successfully."
+                  vector_id:
+                    type: string
+                    example: "a8b5c1f3-8b1e-4d5a-9b1c-3e4d5a6b7c8d"
+
+  /search:
+    post:
+      summary: Search for relevant content
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                query:
+                  type: string
+                  description: The search query.
+                top_k:
+                  type: integer
+                  description: The number of results to return.
+                  default: 5
+      responses:
+        '200':
+          description: Successful search.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    source:
+                      type: string
+                    content:
+                      type: string
+                    score:
+                      type: number
+
+  /chat:
+    post:
+      summary: Chat with the RAG assistant
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                query:
+                  type: string
+                  description: The user's message.
+                chat_id:
+                  type: string
+                  description: The ID of the chat session (optional).
+      responses:
+        '200':
+          description: Successful chat response.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: string
+                    description: The assistant's response.
+                  sources:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        source:
+                          type: string
+                        content:
+                          type: string
+                  chat_id:
+                    type: string
+                    description: The ID of the chat session.
